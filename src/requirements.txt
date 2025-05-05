@@ -1,0 +1,7 @@
+wandb==0.19.10
+datasets==3.5.1
+peft==0.15.2
+trl==0.17.0
+bitsandbytes==0.45.5
+tokenizers==0.21.1
+transformers==4.51.3

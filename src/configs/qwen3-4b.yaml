@@ -1,0 +1,77 @@
+# 스크립트 기본 매개변수
+model_name_or_path: "/opt/ml/input/data/model_weight"
+train_dataset_path: "/opt/ml/input/data/training"
+output_dir: "/opt/ml/checkpoints"
+tokenizers_parallelism: "false"
+
+# 모델 설정 - 메모리 최적화
+model:
+  load_in_4bit: true
+  bnb_4bit_use_double_quant: true  # 이중 양자화 활성화
+  bnb_4bit_quant_type: "nf4"
+  use_bf16: false  # fp16 사용 (메모리 효율적)
+  trust_remote_code: true
+  low_cpu_mem_usage: true
+  use_cache: false  # 캐시 비활성화로 메모리 절약
+  offload_folder: "offload"  # 디스크 오프로딩 설정
+  offload_state_dict: true  # 상태 딕셔너리 오프로딩
+
+# 토크나이저 설정
+tokenizer:
+  trust_remote_code: true
+  use_fast: true
+  padding_side: "right"
+
+# LoRA 설정 - 메모리 최적화
+lora:
+  lora_alpha: 16
+  lora_dropout: 0.05
+  lora_r: 64  # r 값 감소로 메모리 사용량 감소
+  bias: "none"
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+# 데이터 설정 - 메모리 최적화
+data:
+  train_path: "train_dataset.json"
+  text_column: "text"
+  max_seq_length: 2048
+  padding: false  # 동적 패딩 사용
+  truncation: true
+
+# 데이터셋 처리 설정 - 메모리 최적화
+dataset:
+  preprocessing_batch_size: 50  # 작은 배치 크기로 처리
+  num_proc: 1
+  streaming: false  # 필요시 true로 설정하여 스트리밍 활성화
+
+# 데이터 콜레이터 설정
+data_collator:
+  mlm: false
+  pad_to_multiple_of: 8
+
+# 학습 설정 - 메모리 최적화
+training:
+  per_device_train_batch_size: 1  # 배치 크기 감소
+  gradient_accumulation_steps: 8  # 증가하여 효과적인 배치 크기 유지
+  learning_rate: 2.0e-3
+  num_train_epochs: 5
+  logging_steps: 10
+  warmup_steps: 10
+  optim: "adamw_torch_fused"  # 최적화된 옵티마이저
+  group_by_length: true  # 길이별 그룹화로 패딩 최소화
+  save_strategy: "steps"
+  save_steps: 500
+  save_total_limit: 1  # 저장 모델 수 감소
+  seed: 42
+  dataloader_num_workers: 0  # 워커 수 감소
+  report_to: "none"  # 보고 비활성화
+  ddp_find_unused_parameters: false
+  gradient_checkpointing: true  # 그래디언트 체크포인팅 활성화
+  max_grad_norm: 1.0
