@@ -4,18 +4,18 @@
 
 ## 폴더 구조
 
-- `1. Preparation-qwen3.ipynb` : 실습 환경 준비 및 필수 패키지 설치, 모델/토크나이저 다운로드
-- `2. Fine-tuning-model-qwen3.ipynb` : QLoRA 기반 Qwen3 모델 파인튜닝 실습
-- `3. Serving-model-qwen3.ipynb` : 파인튜닝된 모델의 추론 예시
+- `1. Preparation.ipynb` : 실습 환경 준비 및 필수 패키지 설치, 모델/토크나이저 다운로드, 샘플 데이터 준비
+- `2. Fine-tuning-model.ipynb` : LoRA 기반 Qwen3 모델 파인튜닝 실습
+- `3. Serving-model.ipynb` : SageMaker Inference Component 를 이용한 Pretrained 모델과 파인튜닝된 모델의 추론 예시
 - `src/`
-  - `sm_lora_trainer.py` : QLoRA 기반 파인튜닝 스크립트 (분산 학습, 메모리 최적화 포함)
+  - `sm_lora_trainer.py` : LoRA 기반 파인튜닝 스크립트 (분산 학습, 메모리 최적화 포함)
   - `requirements.txt` : 실험에 필요한 Python 패키지 목록
 
 ## 실행 환경
 
 - Python 3.10 이상
 - GPU 인스턴스 권장: `ml.g5.2xlarge` (학습 및 추론 시)
-- 노트북 환경: Jupyter, SageMaker, Colab 등 어떤 환경이든 무방
+- 노트북 환경: SageMaker Notebook에서 활용
 
 ## 주요 패키지
 
@@ -26,12 +26,6 @@
 - bitsandbytes==0.45.5
 - wandb==0.19.10
 - tokenizers==0.21.1
-
-## 사용 방법
-
-1. `1. Preparation-qwen3.ipynb` 실행: 환경 및 패키지 설치, 모델/토크나이저 준비
-2. `2. Fine-tuning-model-qwen3.ipynb` 실행: 데이터셋 준비 및 QLoRA 기반 Qwen3 파인튜닝
-3. `3. Serving-model-qwen3.ipynb` 실행: 파인튜닝된 모델로 추론 테스트
 
 ## 참고 자료
 
