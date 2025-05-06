@@ -4,9 +4,9 @@
 
 ## 폴더 구조
 
-- `1. Preparation.ipynb` : 실습 환경 준비 및 필수 패키지 설치, 모델/토크나이저 다운로드, 샘플 데이터 준비
-- `2. Fine-tuning-model.ipynb` : LoRA 기반 Qwen3 모델 파인튜닝 실습
-- `3. Serving-model.ipynb` : SageMaker Inference Component 를 이용한 Pretrained 모델과 파인튜닝된 모델의 추론 예시
+- `1-1. Preparation.ipynb` : 실습 환경 준비 및 필수 패키지 설치, 모델/토크나이저 다운로드, 샘플 데이터 준비
+- `1-2. Fine-tuning-model.ipynb` : LoRA 기반 Qwen3 모델 파인튜닝 실습
+- `1-3. Serving-model.ipynb` : SageMaker Inference Component 를 이용한 Pretrained 모델과 파인튜닝된 모델의 추론 예시
 - `src/`
   - `sm_lora_trainer.py` : LoRA 기반 파인튜닝 스크립트 (분산 학습, 메모리 최적화 포함)
   - `requirements.txt` : 실험에 필요한 Python 패키지 목록
